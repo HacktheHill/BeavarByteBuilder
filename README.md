@@ -1,2 +1,4 @@
 # BeavarByteBuilder
-Embedded code generation tool for hack the hill
+Hack the Hill's embedded code generation tool.
+
+
