@@ -1,0 +1,22 @@
+{
+    "mcus": [
+        {
+            "name": "atmega32u4",
+            "specialized_pinouts": [
+                {
+                    "SDA": "SDA",
+                    "SCL": "SCL"
+                },
+                {
+                  "SDA2": "SDA2",
+                  "SCL": "SCL"
+                }
+            ],
+            "normal_pinouts": {},
+            "driver_includes": [
+                "BB-BB_vl53l5cx_satel.h"
+            ],
+            "init_driver_function": "BB_vl53l5cx_satel_init"
+        }
+    ]
+}
