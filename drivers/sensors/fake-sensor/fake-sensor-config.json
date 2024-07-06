@@ -8,15 +8,15 @@
                     "SCL": "SCL"
                 },
                 {
-                  "SDA2": "SDA2",
-                  "SCL": "SCL"
+                    "SDA2": "SDA2",
+                    "SCL": "SCL"
                 }
             ],
             "normal_pinouts": {},
             "driver_includes": [
-                "BB-BB_vl53l5cx_satel.h"
+                "BB-BB_fake_sensor.h"
             ],
-            "init_driver_function": "BB_vl53l5cx_satel_init"
+            "init_driver_function": "BB_fake_sensor_init"
         }
     ]
 }
