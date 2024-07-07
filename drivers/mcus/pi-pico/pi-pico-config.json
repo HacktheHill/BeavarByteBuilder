@@ -1,0 +1,7 @@
+{
+  "sensors": [
+    "button",
+    "joystick",
+    "led"
+  ]
+}
