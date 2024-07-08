@@ -4,6 +4,10 @@ from ttkthemes import ThemedStyle
 from scanMCUs import *
 from sensorOptionList import *
 from fileCreator import *
+from browseFiles import *
+from downloadLibrary import *
+from validatePinout import *
+from predictPath import *
 
 class MainWindow:
     def __init__(self):
@@ -24,20 +28,40 @@ class MainWindow:
         sensorOptions.initialize_sensor_options(mcu_list, sensor_options)
 
         fileCreator = FileCreator()
+        browseFiles = BrowseFiles()
+        downloadLibrary = DownloadLibrary()
+        validatePinout = ValidatePinout()
+        predictPath = PredictPath()
 
-        file_path_label = Label(self.root, text="Enter desired filepath (ex. C:/Carleton/BeavarByteBuilder):")
-        file_path_label.pack(pady=5)
+        Label(self.root, text="Enter desired filepath (ex. C:/Users/liamp/OneDrive/Documents/Arduino/libraries):").pack(pady=5)
+        file_download_var = StringVar()
+        status_label_prediction = Label(self.root, text="")
+        hardware = "VL53L5CX"
+        file_download_var.set(predictPath.getArduinoPath(status_label_prediction, hardware))  # Predict the Arduino path
+        Entry(self.root, width=50, textvariable=file_download_var).pack(pady=5)
+        status_label_prediction.pack(pady=5)
+        Button(self.root, text="Browse Files", 
+            command=lambda: browseFiles.browse_file(file_download_var)).pack(pady=5)
+        status_label_download = Label(self.root, text="")
+        Button(self.root, text="Download Library", 
+            command=lambda: downloadLibrary.fetchFromGithub(file_download_var, status_label_download)).pack(pady=5)
+        status_label_download.pack(pady=5)
 
-        file_path_input = StringVar()
-        file_path_input.set("C:/Carleton/BeavarByteBuilder")
-        file_path = Entry(self.root, width=50, textvariable=file_path_input)
-        file_path.pack(pady=5)
+        Label(self.root, text="Enter desired filepath (ex. C:/Carleton/LogFiles):").pack(pady=5)
+        file_validate_var = StringVar()
+        file_validate_var.set("LogFiles")
+        Entry(self.root, width=50, textvariable=file_validate_var).pack(pady=5)
+        Button(self.root, text="Browse Files", 
+            command=lambda: browseFiles.browse_file(file_validate_var)).pack(pady=5)
+        status_label_validate = Label(self.root, text="")
+        Button(self.root, text="Validate Pinout", 
+            command=lambda: validatePinout.validatePinout(file_validate_var, status_label_validate)).pack(pady=5)
+        status_label_validate.pack(pady=5)
 
         selected_MCU = IntVar(self.root)  # Use IntVar for radio buttons
         selected_MCU.set(0)
 
-        mcu_selection_label = Label(self.root, text="Select MCU:")
-        mcu_selection_label.pack(pady=5)
+        Label(self.root, text="Select MCU:").pack(pady=5)
 
         mcu_frame = Frame(self.root)
         mcu_frame.pack(pady=5)
@@ -48,19 +72,22 @@ class MainWindow:
             radiobutton.pack(side=LEFT, anchor=W)  # Pack radio buttons horizontally
             radio_button_index += 1
 
-        sensor_option_label = Label(self.root, text="Select Sensor Option:")
-        sensor_option_label.pack(pady=10)
+        Label(self.root, text="Select Sensor Option:").pack(pady=10)
 
         sensor_options_listbox = Listbox(self.root, selectmode=MULTIPLE)
         sensor_options_listbox.config(state=NORMAL)  # Allow selection
         sensor_options_listbox.pack(pady=5)
 
-        generate_button = Button(self.root, text="Generate files", 
-            command=lambda: fileCreator.create_file(file_path, status_label))
-        generate_button.pack(pady=5)
-
-        status_label = Label(self.root, text="")
-        status_label.pack(pady=5)
+        Label(self.root, text="Enter desired filepath (ex. Downloads):").pack(pady=5)
+        file_gen_var = StringVar()
+        file_gen_var.set("Downloads")
+        Entry(self.root, width=50, textvariable=file_gen_var).pack(pady=5)
+        Button(self.root, text="Browse Files", 
+            command=lambda: browseFiles.browse_file(file_gen_var)).pack(pady=5)
+        status_label_generate = Label(self.root, text="")
+        Button(self.root, text="Generate files", 
+            command=lambda: fileCreator.create_file(file_gen_var, status_label_generate)).pack(pady=5)
+        status_label_generate.pack(pady=5)
 
         # STARTUP: Call on startup to display initial options
         sensorOptions.update_sensor_options(selected_MCU, sensor_options_listbox, mcu_list, sensor_options)
