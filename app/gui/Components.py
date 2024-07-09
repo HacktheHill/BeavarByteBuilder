@@ -48,14 +48,14 @@ class MainWindow:
         status_label_download.pack(pady=5)
 
         Label(self.root, text="Enter desired filepath (ex. C:/Carleton/LogFiles):").pack(pady=5)
-        file_validate_var = StringVar()
-        file_validate_var.set("LogFiles")
-        Entry(self.root, width=50, textvariable=file_validate_var).pack(pady=5)
+        path_log_var = StringVar()
+        path_log_var.set("LogFiles")
+        Entry(self.root, width=50, textvariable=path_log_var).pack(pady=5)
         Button(self.root, text="Browse Files", 
-            command=lambda: browseFiles.browse_file(file_validate_var)).pack(pady=5)
+            command=lambda: browseFiles.browse_file(path_log_var)).pack(pady=5)
         status_label_validate = Label(self.root, text="")
         Button(self.root, text="Validate Pinout", 
-            command=lambda: validatePinout.validatePinout(file_validate_var, status_label_validate)).pack(pady=5)
+            command=lambda: validatePinout.validatePinout(path_log_var, status_label_validate)).pack(pady=5)
         status_label_validate.pack(pady=5)
 
         selected_MCU = IntVar(self.root)  # Use IntVar for radio buttons

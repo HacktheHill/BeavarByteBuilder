@@ -1,0 +1,43 @@
+{
+    "mcus": [
+        {
+            "name": "fake-mcu",
+            "specialized_pinouts": [
+                {
+                    "SDA": "SDA",
+                    "SCL": "SCL"
+                },
+                {
+                    "SDA2": "SDA2",
+                    "SCL": "SCL"
+                }
+            ],
+            "normal_pinouts": {
+                "VRX": [
+                    "A0",
+                    "A1",
+                    "A2",
+                    "A3"
+                ],
+                "VRY": [
+                    "A0",
+                    "A1",
+                    "A2",
+                    "A3"
+                ],
+                "SW": [
+                    "A0",
+                    "A1",
+                    "A2",
+                    "A3",
+                    "A4",
+                    "A5"
+                ]
+            },
+            "driver_includes": [
+                "BB-BB_fake_sensor1.h"
+            ],
+            "init_driver_function": "BB_fake_sensor1_init"
+        }
+    ]
+}

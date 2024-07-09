@@ -1,0 +1,6 @@
+{
+    "pinout_diagram": "https://learn.adafruit.com/assets/110767",
+    "sensors": [
+        "fake-sensor1"
+    ]
+}
